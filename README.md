@@ -309,6 +309,30 @@ Provides insights for HR and Managers.
 
 ---
 
+## Database Setup (Auto-create DB + Tables)
+
+### Option 1: Docker (recommended)
+
+1. Copy env file (optional):
+   - `copy .env.example .env`
+2. Start PostgreSQL:
+   - `docker compose up -d`
+3. Run the Spring Boot app. On startup:
+   - PostgreSQL DB is created by the container on first run (`POSTGRES_DB`).
+   - Tables are created by Flyway migration `src/main/resources/db/migration/V1__init.sql`.
+
+### Option 2: Existing PostgreSQL (manual DB create)
+
+PostgreSQL cannot reliably create a *database* from inside the application without elevated permissions. Create the DB once, then the app will create tables automatically via Flyway.
+
+- Create DB: `employee_learning_tracker`
+- Set env vars for the app:
+  - `DB_URL=jdbc:postgresql://localhost:5432/employee_learning_tracker`
+  - `DB_USERNAME=etl_user`
+  - `DB_PASSWORD=etl_password`
+
+---
+
 ## Important Features
 
 ### Course Progress Tracking
